@@ -1,0 +1,127 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+    font-family: "Lato" sans-serif;
+}
+
+button {
+    cursor: pointer;
+    background-color: white;
+}
+
+header {
+    width: 785px;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.search-by-city,
+.search-by-coord {
+    background-color: aqua;
+    width: 90px;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-right: 20px;
+    font-weight: 500;
+}
+
+.coord-input,
+.city-input {
+    width: 800px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.coord-input input,
+.city-input input {
+    width: 350px;
+    height: 40px;
+    border-radius: 10px;
+    margin-right: 20px;
+    background-color: beige;
+    padding: 10px;
+}
+
+/*карточка*/
+main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки одинаковой ширины */
+    gap: 10px; /* отступы между элементами */
+}
+
+main > div { /* или другой селектор, если у дочерних элементов другой тег */
+    flex: 1 1 33%; /* каждый элемент будет занимать 33% ширины контейнера */
+    box-sizing: border-box; /* учитывает паддинги и границы в расчете ширины */
+}
+
+.container {
+    position: relative;
+    width: 330px; /*500*/
+    height: auto;
+    background-color: #fff;
+    padding: 15px; /*28 32*/
+    overflow: hidden;
+    border-radius: 18px;
+    font-family: "Lato" sans-serif;
+    transition: 0.6s ease-out;
+
+    background-color: #cde6bc;
+    margin-right: 20px;
+}
+
+.weather {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.weather h1 {
+    font-size: 40px; /*80*/
+    font-weight: 700;
+}
+
+.weather h2 {
+    font-size: 40px; /*55*/
+    font-weight: 500;
+    /* margin-top: 20px; */
+}
+
+.weather-image i {
+    font-size: 80px; /*120*/
+}
+
+.details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 25px 0; /*50px 0*/
+    padding: 0 20px;
+}
+
+.details i {
+    font-size: 40px; /*80*/
+    margin-bottom: 10px;
+}
+
+.details p {
+    font-size: 20px; /*28*/
+}
+
+/*karta*/
+.map {
+    width: 200px;
+    height: 200px;
+    /* background-color: red; */
+    margin-left: 50px;
+    border-radius: 15px;
+    
+}
