@@ -116,12 +116,20 @@ main > div { /* или другой селектор, если у дочерни
     font-size: 20px; /*28*/
 }
 
+.close-card {
+    background-color: transparent;
+    align-self: right;
+    display: block;
+    margin-left: auto;
+}
+
 /*karta*/
 .map {
     width: 200px;
     height: 200px;
-    /* background-color: red; */
+    background-color: red;
     margin-left: 50px;
     border-radius: 15px;
     
 }
+/*--------------------*/
