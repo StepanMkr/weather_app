@@ -28,13 +28,30 @@ async function requestCityWeather(city) {
         weatherIconClass = "fa-solid fa-cloud-drizzle";
       } else if (data.weather[0].main === "Clouds") {
         weatherIconClass = "fa-solid fa-cloud"
+      } else if (data.weather[0].main === "Fog") {
+        weatherIconClass = "fa-solid fa-smog"
       }
 
     return [city, temp, humidity, wind, weatherIconClass]
 }
 
+const apiUrlCoords = `http://api.openweathermap.org/geo/1.0/reverse?lat=`;
 
+async function requestCityByCoord(lat, lon) {
+    const response = await fetch(apiUrlCoords + lat + `&lon=` + lon + `&limit=3&appid=${apiKey}`);
+    const data = await response.json();
+    let city = ""
+    try {
+        city = data[0].name;
+    } catch {
+        window.alert("Такого города не существуетААААААААААА!")
+    }
+    console.log(data, "coord")
+    return city;
+};
+//конец БЭКА
 
+//обработка поиска по городу
 const cityInput = document.querySelector('.city-input input');
 const searchByCityButton = document.querySelector('.city-response');
 
@@ -55,56 +72,59 @@ cityInput.addEventListener("keydown", (e) => {
     }
 });
 
+//обработка поиска по координатам
+const latInput = document.querySelector('.lat');
+const lonInput = document.querySelector('.lon');
+const searchByCoordButton = document.querySelector('.coord-response');
 
+async function handleCoordInput() {
+    const inputedLat = latInput.value;
+    const inputedLon = lonInput.value;
+    latInput.value = "";
+    lonInput.value = "";
+    const city = await requestCityByCoord(inputedLat, inputedLon);
+    const weather = await requestCityWeather(city);
+    const weatherCard = createCard(weather);
 
+    const mainHTML = document.querySelector('main');
+    mainHTML.appendChild(weatherCard);
+}
 
+searchByCoordButton.addEventListener("click", handleCoordInput);
+const inputs = [lonInput, latInput];
 
-const headerInput = document.querySelector('.input-field');
-const coordButton = document.querySelector(".search-by-coord")
-const cityButton = document.querySelector(".search-by-city")
-
-//сменить поле ввода на координаты
-coordButton.addEventListener("click", function () {
-    headerInput.innerHTML = `
-        <div class="coord-input">
-            <input type="text" placeholder="Широта" class="lat">
-            <input type="text" placeholder="Долгота" class="lon">
-            <button class="fa-solid fa-search coord-response"></button>
-        </div>
-    `
-});
-
-//сменить поле ввода на город
-cityButton.addEventListener("click", function () {
-    headerInput.innerHTML = `
-        <div class="city-input">
-            <input type="text" placeholder="Введите город">
-            <button class="fa-solid fa-search city-response"></button>
-        </div>
-    `;
-
-    // После обновления контента, снова привязываем обработчик событий к кнопке
-    const searchByCityButton = document.querySelector('.city-response');
-    searchByCityButton.addEventListener("click", async () => {
-        const cityInput = document.querySelector('.city-input input');
-        const inputedCity = cityInput.value;
-        cityInput.value = "";
-
-        const inputedCityWeather = await requestCityWeather(inputedCity);
-        const weatherCard = createCard(inputedCityWeather);
-
-        const mainHTML = document.querySelector('main');
-        mainHTML.appendChild(weatherCard);
-    });
-    cityInput.addEventListener("keydown", (e) => {
+inputs.forEach(input => {
+    input.addEventListener("keydown", (e) => {
         if (e.keyCode === 13) {
-            handleCityInput()
+            handleCoordInput();
         }
     });
 });
 
-//карточка с параметрами
 
+
+
+
+//смена параметров поиска
+const coordButton = document.querySelector(".search-by-coord")
+const cityButton = document.querySelector(".search-by-city")
+
+const cityInputFormContainer = document.querySelector('.city-input');
+const coordInputFormContainer = document.querySelector('.coord-input');
+
+//сменить поле ввода на координаты
+coordButton.addEventListener("click", () => {
+    cityInputFormContainer.style.display = 'none';
+    coordInputFormContainer.style.display = 'flex';
+})
+
+//сменить поле ввода на город
+cityButton.addEventListener("click", () => {
+    coordInputFormContainer.style.display = 'none';
+    cityInputFormContainer.style.display = 'flex';
+})
+
+//карточка с параметрами
 function createCard(weatherData) {
     const container = document.createElement('div');
 

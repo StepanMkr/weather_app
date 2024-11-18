@@ -34,10 +34,14 @@ header {
     font-weight: 500;
 }
 
-.coord-input,
+.coord-input {
+    width: 800px;
+    display: none;
+    justify-content: center;
+}
+
 .city-input {
     width: 800px;
-
     display: flex;
     justify-content: center;
 }
