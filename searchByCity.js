@@ -5,7 +5,7 @@ async function requestCityWeather(city) {
     const response = await fetch(apiUrlCity + city + `&appid=${apiKey}`) 
     const data = await response.json()
     if (response.status === 404) {
-        window.alert("Такого города не существует");
+        window.alert("Такого города не существует!");
         return;
     }
     console.log(data, "data")
