@@ -1,55 +1,6 @@
-const apiKey = "f570e196a5d7e25fe0936cf08c22e0ea"
-const apiUrlCity = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=`;
+import { requestCityWeather } from './requestWeather.js';
+import { requestCityByCoord } from './requestCity.js';
 
-async function requestCityWeather(city) {
-    const response = await fetch(apiUrlCity + city + `&appid=${apiKey}`) 
-    const data = await response.json()
-    if (response.status === 404) {
-        window.alert("Такого города не существует!");
-        return;
-    }
-    console.log(data, "data")
-
-    const temp = Math.round(data.main.temp);
-    console.log(temp)
-    const humidity = data.main.humidity;
-    console.log(humidity)
-    const wind = Math.round(data.wind.speed);
-    console.log(wind)
-
-    let weatherIconClass = ""
-    if (data.weather[0].main === "Clear") {
-        weatherIconClass = "fa-solid fa-sun";
-      } else if (data.weather[0].main === "Rain") {
-        weatherIconClass = "fa-solid fa-cloud-rain";
-      } else if (data.weather[0].main === "Mist") {
-        weatherIconClass = "fa-solid fa-cloud-mist";
-      } else if (data.weather[0].main === "Drizzle") {
-        weatherIconClass = "fa-solid fa-cloud-drizzle";
-      } else if (data.weather[0].main === "Clouds") {
-        weatherIconClass = "fa-solid fa-cloud"
-      } else if (data.weather[0].main === "Fog") {
-        weatherIconClass = "fa-solid fa-smog"
-      }
-
-    return [city, temp, humidity, wind, weatherIconClass]
-}
-
-const apiUrlCoords = `http://api.openweathermap.org/geo/1.0/reverse?lat=`;
-
-async function requestCityByCoord(lat, lon) {
-    const response = await fetch(apiUrlCoords + lat + `&lon=` + lon + `&limit=3&appid=${apiKey}`);
-    const data = await response.json();
-    let city = ""
-    try {
-        city = data[0].name;
-    } catch {
-        window.alert("Такого города не существуетААААААААААА!")
-    }
-    console.log(data, "coord")
-    return city;
-};
-//конец БЭКА
 
 //обработка поиска по городу
 const cityInput = document.querySelector('.city-input input');
@@ -133,27 +84,27 @@ function createCard(weatherData) {
             <button class="fa-solid fa-x close-card"></button>
             <div class="weather">
                 <div class="weather-image">
-                    <i class="${weatherData[4]}"></i>
+                    <i class="${weatherData.weatherIconClass}"></i>
                 </div>
-                <h1 class="temp">${weatherData[1]} &#8451;</h1>
-                <h2 class="city">${weatherData[0].charAt(0).toUpperCase() + weatherData[0].slice(1)}</h2>
+                <h1 class="temp">${weatherData.temp} &#8451;</h1>
+                <h2 class="city">${weatherData.city.charAt(0).toUpperCase() + weatherData.city.slice(1)}</h2>
                 <div class="details">
                     <div class="col">
                         <i class="fa-solid fa-water"></i>
                         <div>
-                            <p class="humidity">${weatherData[2]}%</p>
+                            <p class="humidity">${weatherData.humidity}%</p>
                             <p>Humidity</p>
                         </div>
                     </div>
                     <div class="col">
                         <i class="fa-solid fa-wind"></i>
                         <div>
-                            <p class="wind">${weatherData[3]} km/h</p>
+                            <p class="wind">${weatherData.wind} km/h</p>
                             <p>Wind Speed</p>
                         </div>
                     </div>
                 </div>
-                <div id="map" class="map"></div>
+                <div id="map" class="map-wrapper"></div>
             </div>
         </div>
     `;
@@ -163,6 +114,25 @@ function createCard(weatherData) {
     closeCardButton.addEventListener('click', () => {
         container.remove();
     });
+
+    const mapElement = container.querySelector('.map-wrapper');
+
+    if (weatherData.lat && weatherData.lon) {
+        const latitude = weatherData.lat;
+        const longitude = weatherData.lon;
+
+        setTimeout(() => {
+            // Инициализируем карту
+            const map = L.map(mapElement).setView([latitude, longitude], 9);
+
+            // Добавляем OpenStreetMap TileLayer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            map.invalidateSize();
+        }, 100); // Отложим инициализацию на 100 миллисекунд
+    }
 
     return container;
 }
