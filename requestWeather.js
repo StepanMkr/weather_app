@@ -1,13 +1,13 @@
 export async function requestCityWeather(city) {
-    const apiKey = "f570e196a5d7e25fe0936cf08c22e0ea"
+    const apiKey = "f570e196a5d7e25fe0936cf08c22e0ea";
     const cityApiURL = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=`;
-    const response = await fetch(cityApiURL + city + `&appid=${apiKey}`)
-    const data = await response.json()
+    const response = await fetch(cityApiURL + city + `&appid=${apiKey}`);
+    const data = await response.json();
     if (response.status === 404) {
         window.alert("Такого города не существует!");
         return;
     }
-    console.log(data, "data")
+    console.log(data, "data");
 
     const temp = Math.round(data.main.temp);
     const humidity = data.main.humidity;
