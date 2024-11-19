@@ -1,7 +1,7 @@
-import { requestCityWeather } from './requestWeather.js';
-import { geocodeCoords } from './requestCity.js';
-import { createCard } from './createWeatherCard.js';
-import { switchInputFormsListeners } from './switchInputFields.js';
+import { requestCityWeather } from './scripts/requestWeather.js';
+import { geocodeCoords } from './scripts/requestCity.js';
+import { createCard } from './scripts/createWeatherCard.js';
+import { switchInputFormsListeners } from './scripts/switchInputFields.js';
 
 
 //обработка поиска по городу
