@@ -17,3 +17,4 @@ export function switchInputFormsListeners() {
         cityInputFormContainer.style.display = 'flex';
     })
 }
+

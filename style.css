@@ -7,14 +7,18 @@
     font-family: "Lato" sans-serif;
 }
 
+body {
+    background: linear-gradient(135deg, #c4e6f7, #7fbdf4);
+}
+
 button {
     cursor: pointer;
     background-color: white;
 }
 
-header {
-    width: 785px;
-    margin-bottom: 20px;
+.header-container {
+    padding-top: 10px;
+    margin-bottom: 40px;
 }
 
 .buttons {
@@ -26,61 +30,103 @@ header {
 .search-by-city,
 .search-by-coord {
     background-color: aqua;
-    width: 90px;
-    height: 30px;
+    width: 140px;
+    height: 40px;
     border-radius: 10px;
     font-size: 14px;
     margin-right: 20px;
     font-weight: 500;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.city-response, .coord-response{
+    background: transparent;
+}
+
+.search-by-city:hover,
+.search-by-coord:hover {
+    transform: scale(1.05);
+}
+
+.search-by-city:active,
+.search-by-coord:active {
+    transform: scale(0.98);
+}
+
+.input-field {
+    display: flex;
+    justify-content: center;
 }
 
 .coord-input {
     width: 800px;
     display: none;
     justify-content: center;
+    padding-left: 14px;
 }
 
 .city-input {
     width: 800px;
     display: flex;
     justify-content: center;
+    padding-left: 10px;
 }
 
 .coord-input input,
 .city-input input {
-    width: 350px;
+    width: 450px;
     height: 40px;
     border-radius: 10px;
     margin-right: 20px;
-    background-color: beige;
+    background-color: white;
     padding: 10px;
 }
 
 /*карточка*/
 main {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 колонки одинаковой ширины */
-    gap: 10px; /* отступы между элементами */
+    grid-template-columns: repeat(4, 1fr);
+    /* 3 колонки одинаковой ширины */
+    gap: 10px;
+    /* отступы между элементами */
+    /* padding-right: 10px; */
+    padding-left: 25px;
 }
 
-main > div { /* или другой селектор, если у дочерних элементов другой тег */
-    flex: 1 1 33%; /* каждый элемент будет занимать 33% ширины контейнера */
-    box-sizing: border-box; /* учитывает паддинги и границы в расчете ширины */
+main>div {
+    /* или другой селектор, если у дочерних элементов другой тег */
+    flex: 1 1 25%;
+    /* каждый элемент будет занимать 33% ширины контейнера */
+    box-sizing: border-box;
+    /* учитывает паддинги и границы в расчете ширины */
 }
 
 .container {
     position: relative;
-    width: 330px; /*500*/
+    width: 330px;
+    /*500*/
     height: auto;
     background-color: #fff;
-    padding: 15px; /*28 32*/
+    padding: 15px;
+    /*28 32*/
     overflow: hidden;
     border-radius: 18px;
     font-family: "Lato" sans-serif;
     transition: 0.6s ease-out;
+    border: solid 1px rgba(0, 0, 0, 0.2);
 
     background-color: #cde6bc;
     margin-right: 20px;
+    margin-bottom: 30px;
+
+    transition: 0.3s ease-out;
+}
+
+.container:hover {
+    transform: translateY(-10px); /* Поднимаем контейнер на 10px */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+    cursor: pointer;
 }
 
 .weather {
@@ -89,35 +135,42 @@ main > div { /* или другой селектор, если у дочерни
 }
 
 .weather h1 {
-    font-size: 40px; /*80*/
-    font-weight: 700;
+    font-size: 30px;
+    /*40*/
+    font-weight: 500; /*700*/
 }
 
 .weather h2 {
-    font-size: 40px; /*55*/
+    font-size: 40px;
+    /*55*/
     font-weight: 500;
     /* margin-top: 20px; */
 }
 
 .weather-image i {
-    font-size: 80px; /*120*/
+    font-size: 60px;
+    /*80*/
+    margin-bottom: 10px;
 }
 
 .details {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 25px 0; /*50px 0*/
+    margin: 25px 0;
+    /*50px 0*/
     padding: 0 20px;
 }
 
 .details i {
-    font-size: 40px; /*80*/
+    font-size: 40px;
+    /*80*/
     margin-bottom: 10px;
 }
 
 .details p {
-    font-size: 20px; /*28*/
+    font-size: 20px;
+    /*28*/
 }
 
 .close-card {
@@ -134,7 +187,7 @@ main > div { /* или другой селектор, если у дочерни
     height: 200px;
     margin-left: 50px;
     border-radius: 15px;
-    
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 /*--------------------*/
