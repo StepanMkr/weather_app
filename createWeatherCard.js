@@ -32,7 +32,7 @@ export function createCard(weatherData) {
     `;
 
     generateMap(weatherData, container.querySelector('.map-wrapper'));
-    container.querySelector('.close-card').addEventListener('click', () => container.remove());
+    weatherCardEventListeners(weatherData, container);
     return container;
 }
 
@@ -50,4 +50,13 @@ function generateMap(weatherData, mapElement) {
             
         }, 100);
     }
+}
+
+function weatherCardEventListeners(weatherData, container) {
+    container.querySelector('.weather').addEventListener('click', () => {
+        const city = weatherData.city;
+        const url = `https://www.google.com/search?q=погода+${encodeURIComponent(city)}`;
+        window.open(url, '_blank');
+    });
+    container.querySelector('.close-card').addEventListener('click', () => container.remove());
 }
