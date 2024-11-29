@@ -31,10 +31,11 @@ function validateWeatherIcon(dataIcon) {
     const iconMap = {
         "Clear": "fa-solid fa-sun",
         "Rain": "fa-solid fa-cloud-rain",
-        "Mist": "fa-solid fa-cloud-mist",
+        "Mist": "fa-solid fa-cloud",
         "Drizzle": "fa-solid fa-cloud-drizzle",
         "Clouds": "fa-solid fa-cloud",
-        "Fog": "fa-solid fa-smog"
+        "Fog": "fa-solid fa-smog",
+        "Snow": "fa-solid fa-snowflake"
     };
-    return iconMap[dataIcon] || '';
+    return iconMap[dataIcon] || 'fa-solid fa-times-circle';
 }
